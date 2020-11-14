@@ -1,5 +1,7 @@
 {
   "name": "unfu-gradebook",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
