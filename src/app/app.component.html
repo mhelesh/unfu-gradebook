@@ -1,28 +1,29 @@
 <ion-app>
-  <ion-menu side="start" type="push" #mainmanu>
+  <ion-app>
 
-    <ion-header>
-      <ion-toolbar>
+    <ion-menu side="start" type="push" #main>
 
-      </ion-toolbar>
-    </ion-header>
+      <ion-header>
+        <ion-toolbar color="dark">
+          <ion-title>Menu</ion-title>
+        </ion-toolbar>
 
-    <ion-content>
-      <ion-list>
-        <ion-item routerLink="/">
-          <ion-label>Home</ion-label>
-        </ion-item>
-        <ion-item routerLink="/journal">
-          <ion-label>Journal</ion-label>
-        </ion-item>
-        <ion-item routerLink="/">
-          <ion-label>Settings</ion-label>
-        </ion-item>
-      </ion-list>
+      </ion-header>
 
-    </ion-content>
+      <ion-content>
+        <ion-list>
+          <ion-item routerLink="/">
+            <ion-label>Home</ion-label>
+          </ion-item>
+          <ion-item routerLink="/journal">
+            <ion-label>Journal</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
 
-  </ion-menu>
+    </ion-menu>
 
-  <ion-router-outlet></ion-router-outlet>
+    <ion-router-outlet main></ion-router-outlet>
+
+  </ion-app>
 </ion-app>
