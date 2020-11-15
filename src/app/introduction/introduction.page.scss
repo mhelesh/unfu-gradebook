@@ -1,0 +1,21 @@
+.introduction-box {
+    width: 70%;
+    min-width: 500px;
+
+    margin: auto;
+    display: flex;
+
+    flex-direction: column;
+    text-align: justify;
+    justify-items: center;
+    justify-content: center;
+
+    height: 100vh;
+
+    ion-slide {
+        height: 100vh;
+        width: 100% !important;
+        flex-direction: column;
+        text-align: justify;
+    }
+}
