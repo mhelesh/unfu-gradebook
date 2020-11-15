@@ -15,6 +15,8 @@ export class IntroductionPage {
 
   async finish() {
     await this.storage.set('introductionShown', true);
+
+    this.router.navigate(['/']);
   }
 
   next() {
