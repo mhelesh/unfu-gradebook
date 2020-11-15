@@ -1,3 +1,12 @@
-<p>
-  login works!
-</p>
+<ng-container *ngIf="auth.user$ | async as user; else login">
+  <app-profile [user]="user"></app-profile>
+  <ion-button (click)="auth.signOut()">
+    Logout
+  </ion-button>
+</ng-container>
+
+<ng-template #login>
+  <ion-button (click)="auth.anonymousLogin()">
+    Login as guest
+  </ion-button>
+</ng-template>
