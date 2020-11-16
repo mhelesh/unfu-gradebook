@@ -1,8 +1,8 @@
 <ng-container *ngIf="auth.user$ | async as user; else login">
-  <app-profile [user]="user"></app-profile>
   <ion-button (click)="auth.signOut()">
     Logout
   </ion-button>
+  <app-profile [user]="user"></app-profile>
 </ng-container>
 
 <ng-template #login>

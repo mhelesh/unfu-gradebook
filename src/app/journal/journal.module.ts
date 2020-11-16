@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { JournalPageRoutingModule } from './journal-routing.module';
+import { SharedModule } from '../shared/shared.module';
 
 import { JournalPage } from './journal.page';
 
@@ -13,8 +14,9 @@ import { JournalPage } from './journal.page';
     CommonModule,
     FormsModule,
     IonicModule,
+    SharedModule,
     JournalPageRoutingModule
   ],
   declarations: [JournalPage]
 })
-export class JournalPageModule {}
+export class JournalPageModule { }

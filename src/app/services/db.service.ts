@@ -35,7 +35,6 @@ export class DbService {
       );
   }
 
-
   // Creates or updates data on a collection or document. path to 'collection' or 'collection/docID'
   updateAt(path: string, data: object): Promise<any> {
     const segments = path.split('/').filter(v => v);

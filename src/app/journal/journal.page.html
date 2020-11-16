@@ -1,9 +1,14 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>journal</ion-title>
-  </ion-toolbar>
-</ion-header>
-
+<app-page-header [pageTitle]="'Home'"></app-page-header>
 <ion-content>
+  <ion-list *ngIf='(journals$ | async)?.length > 0 ; else noJournals'>
+    <ion-item *ngFor="let journal of journals$  | async ; trackBy: trackById;">
+      <ion-title>{{journal.groupName}}</ion-title>
+    </ion-item>
+  </ion-list>
 
+  <ng-template #noJournals>
+    <ion-card>
+      <ion-text>No journals</ion-text>
+    </ion-card>
+  </ng-template>
 </ion-content>

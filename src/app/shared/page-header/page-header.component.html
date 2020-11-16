@@ -1,0 +1,12 @@
+<ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-menu-button autoHide></ion-menu-button>
+  </ion-buttons>
+  <ion-title slot="start" size="large">UNFU Gradebook</ion-title>
+  <ion-title slot="start" size="small">{{pageTitle}}</ion-title>
+
+  <ion-title slot="end" size="small">{{(auth.user$ | async)?.displayName}}</ion-title>
+  <ion-thumbnail slot="end">
+    <ion-img [src]="(auth.user$ | async)?.photoURL || 'assets/icon/favicon.png'"></ion-img>
+  </ion-thumbnail>
+</ion-toolbar>

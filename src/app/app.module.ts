@@ -20,6 +20,7 @@ import { AngularFireMessagingModule } from '@angular/fire/messaging';
 
 import { IonicStorageModule } from '@ionic/storage';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,6 +35,7 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
     AngularFireFunctionsModule,
     AngularFireMessagingModule,
     IonicStorageModule.forRoot(),
+    SharedModule
   ],
   providers: [
     Firebase,
