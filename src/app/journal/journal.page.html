@@ -1,5 +1,15 @@
 <app-page-header [pageTitle]="'Home'"></app-page-header>
+
 <ion-content>
+  <ion-segment (ionChange)="changeInstitute($event)">
+    <ion-segment-button value="all" checked>
+      All
+    </ion-segment-button>
+    <ion-segment-button *ngFor="let institute of ((institutes$  | async)?.institutes)" [value]="institute">
+      {{institute}}
+    </ion-segment-button>
+  </ion-segment>
+
   <ion-list *ngIf='(journals$ | async)?.length > 0 ; else noJournals'>
     <ion-item *ngFor="let journal of journals$  | async ; trackBy: trackById;">
       <ion-title>{{journal.groupName}}</ion-title>
