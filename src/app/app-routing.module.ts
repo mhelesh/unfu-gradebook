@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 import { IntroGuard } from './guards/intro.guard';
 
 const routes: Routes = [
@@ -15,7 +16,8 @@ const routes: Routes = [
   },
   {
     path: 'journal',
-    loadChildren: () => import('./journal/journal.module').then(m => m.JournalPageModule)
+    loadChildren: () => import('./journal/journal.module').then(m => m.JournalPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'introduction',

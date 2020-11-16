@@ -6,7 +6,7 @@
         User id: {{user.id}}
       </ion-card-subtitle>
 
-      <img [src]="user.photoUrl || 'assets/icon/anon.svg'" alt="User's avatar">
+      <img [src]="user.photoURL || 'assets/icon/favicon.png'" alt="User's avatar">
 
       <ion-card-title>{{user.displayName || 'Anonym'}} </ion-card-title>
 
@@ -15,5 +15,6 @@
     <ion-card-content>
       Anonymous: {{user.isAnonymous}} <br> Email: {{user.email || 'unknown'}}
     </ion-card-content>
+
   </ion-card>
 </ion-content>
