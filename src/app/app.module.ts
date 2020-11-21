@@ -35,7 +35,7 @@ import { SharedModule } from './shared/shared.module';
     AngularFireFunctionsModule,
     AngularFireMessagingModule,
     IonicStorageModule.forRoot(),
-    SharedModule
+    SharedModule,
   ],
   providers: [
     Firebase,

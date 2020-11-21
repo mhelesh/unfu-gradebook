@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add new group</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <form [formGroup]="journalForm">
+
+    <ion-item>
+      <ion-select placeholder="Select institute" formControlName="institute"
+        [class.invalid]="!journalForm.controls.institute.valid && (journalForm.controls.institute.dirty)">
+        <ion-label position="floating">Institute</ion-label>
+        <ion-select-option *ngFor="let institute of ((institutes$  | async)?.institutes)" value={{institute}}>
+          {{institute | uppercase }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-select placeholder="Select group" formControlName="group"
+        [class.invalid]="!journalForm.controls.group.valid && (journalForm.controls.group.dirty)"
+        [attr.disabled]="!journalForm.controls.institute.valid">
+        <ion-label position="floating">Institute</ion-label>
+        <ion-select-option *ngFor="let group of ((institutes$  | async)?.institutesMap[journalForm.value?.institute])"
+          value={{group}}>
+          {{group | uppercase}}
+        </ion-select-option>
+
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Group year</ion-label>
+      <ion-range min="1" max="6" step="1" snaps="true" pin="true" ticks="true" formControlName="groupYear">
+      </ion-range>
+
+      <ion-badge slot="end" value="1">{{journalForm.value.groupYear || 1}}</ion-badge>
+    </ion-item>
+
+
+  </form>
+
+  <ion-button [disabled]="journalForm.invalid" (click)="createGroup()">{{ journal ? 'Add ' + journal : 'Change' }}
+  </ion-button>
+
+</ion-content>

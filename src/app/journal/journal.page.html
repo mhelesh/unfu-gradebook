@@ -1,24 +1,56 @@
-<app-page-header [pageTitle]="'Home'"></app-page-header>
+<app-page-header [pageTitle]="'Journal ' + (journalPath.institute ? ': ' + journalPath.institute : '').toUpperCase()">
+</app-page-header>
 
 <ion-content>
-  <ion-segment (ionChange)="changeInstitute($event)">
+  <!-- <ion-segment (ionChange)="changeInstitute($event)">
     <ion-segment-button value="all" checked>
       All
     </ion-segment-button>
     <ion-segment-button *ngFor="let institute of ((institutes$  | async)?.institutes)" [value]="institute">
       {{institute}}
     </ion-segment-button>
-  </ion-segment>
+  </ion-segment> -->
 
-  <ion-list *ngIf='(journals$ | async)?.length > 0 ; else noJournals'>
-    <ion-item *ngFor="let journal of journals$  | async ; trackBy: trackById;">
-      <ion-title>{{journal.groupName}}</ion-title>
-    </ion-item>
-  </ion-list>
+  <ion-card>
+    <ion-card-content>
+      <ion-chip (click)="changeInstitute($event, 'all')">
+        <ion-label>All</ion-label>
+      </ion-chip>
+      <ion-chip *ngFor="let institute of ((institutes$  | async)?.institutes)"
+        (click)="changeInstitute($event, institute)">
+        <ion-label>{{institute | uppercase}}</ion-label>
+      </ion-chip>
+    </ion-card-content>
+  </ion-card>
 
-  <ng-template #noJournals>
-    <ion-card>
-      <ion-text>No journals</ion-text>
-    </ion-card>
-  </ng-template>
+  <ion-card>
+    <ion-card-content>
+      <ion-list *ngIf='(journals$ | async)?.length > 0 ; else noJournals'>
+        <ion-item *ngFor="let journal of journals$  | async ; trackBy: trackById;">
+          <ion-title>{{journal.group}}</ion-title>
+        </ion-item>
+      </ion-list>
+
+      <ng-template #noJournals>
+        <ion-card-content>
+          <ion-text>No journals</ion-text>
+        </ion-card-content>
+      </ng-template>
+
+    </ion-card-content>
+  </ion-card>
+
+
+
+  <!-- <ion-tabs>
+    <ion-tab-bar (ionChange)="changeInstitute($event)" slot="bottom">
+      <ion-tab-button *ngFor="let institute of ((institutes$  | async)?.institutes)" tab="schedule">
+        <ion-label>{{institute}}</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs> -->
+
+  <ion-button (click)="showModal()">
+    <ion-icon name="create"></ion-icon>
+  </ion-button>
 </ion-content>

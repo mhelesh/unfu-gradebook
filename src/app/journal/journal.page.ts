@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Event } from '@angular/router';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { shareReplay, switchMap } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { DbService } from '../services/db.service';
+
+import { JournalFormComponent } from './journal-form/journal-form.component';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-journal',
@@ -15,9 +18,15 @@ export class JournalPage implements OnInit {
   journals$: Observable<any>;
   institutes$: Observable<any>;
 
+  journalPath = { institute: '' };
+
   chosenInstitute = new BehaviorSubject(null);
 
-  constructor(public db: DbService, public auth: AuthService) { }
+  constructor(
+    public db: DbService,
+    public auth: AuthService,
+    public modal: ModalController
+  ) { }
 
   ngOnInit() {
     this.journals$ = this.auth.user$.pipe(
@@ -36,7 +45,7 @@ export class JournalPage implements OnInit {
     this.journals$ = this.chosenInstitute.pipe(
       switchMap(filter => this.db.collection$('journals', ref =>
         ref
-          .where('inst', '==', filter)
+          .where('institute', '==', filter)
           .limit(100)
       )
       ),
@@ -52,9 +61,22 @@ export class JournalPage implements OnInit {
     this.chosenInstitute.next(val);
   }
 
-  changeInstitute(event) {
-    console.log(event.detail.value);
-    this.updateChosenInstitute(event.detail.value);
+  changeInstitute(event, institute: string) {
+    console.log(institute);
+    this.journalPath.institute = institute;
+
+    this.updateChosenInstitute(institute);
   }
 
+  add() {
+
+  }
+
+  async showModal() {
+    const modal = await this.modal.create({
+      component: JournalFormComponent,
+      componentProps: { journal: { journal: 'journal' } },
+    });
+    return await modal.present();
+  }
 }
