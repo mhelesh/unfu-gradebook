@@ -9,6 +9,7 @@ import { SharedModule } from '../shared/shared.module';
 
 import { JournalPage } from './journal.page';
 import { JournalFormComponent } from './journal-form/journal-form.component';
+import { GroupJournalComponent } from './group-journal/group-journal.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,7 @@ import { JournalFormComponent } from './journal-form/journal-form.component';
     JournalPageRoutingModule,
     ReactiveFormsModule,
   ],
-  declarations: [JournalPage, JournalFormComponent],
+  declarations: [JournalPage, JournalFormComponent, GroupJournalComponent],
   entryComponents: [JournalFormComponent]
 })
 export class JournalPageModule { }

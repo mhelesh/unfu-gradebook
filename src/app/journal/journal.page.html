@@ -28,6 +28,9 @@
       <ion-list *ngIf='(journals$ | async)?.length > 0 ; else noJournals'>
         <ion-item *ngFor="let journal of journals$  | async ; trackBy: trackById;">
           <ion-title>{{journal.group}}</ion-title>
+          <ion-button [href]="'journal/' + journal.id">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </ion-button>
         </ion-item>
       </ion-list>
 
