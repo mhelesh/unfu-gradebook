@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { shareReplay, switchMap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { DbService } from 'src/app/services/db.service';
 
@@ -26,6 +27,7 @@ export class JournalFormComponent implements OnInit {
 
   institutes$: Observable<any>;
   groups$: Observable<any>;
+  chosenGroup = new BehaviorSubject(null);
 
   ngOnInit() {
     const data = {
@@ -36,11 +38,22 @@ export class JournalFormComponent implements OnInit {
 
     this.institutes$ = this.db.doc$('enums/university');
 
+    this.groups$ = this.chosenGroup.pipe(
+      switchMap(filter => this.db.collection$('groups', ref =>
+        ref
+          .where('group', '==', filter)
+          .limit(100)
+      )
+      ),
+      shareReplay(1)
+    );
+
     this.journalForm = this.fb.group({
       institute: ['', [Validators.required]],
       group: ['', [Validators.required]],
+      groupRef: ['', [Validators.required]],
       groupYear: [1, [Validators.required]],
-    })
+    });
 
   }
 
@@ -55,13 +68,27 @@ export class JournalFormComponent implements OnInit {
       ...this.journalForm.value
     };
 
+    const docId = this.db.generateId(data.group + data.groupYear);
+
+    this.db.updateAt(`journals/${docId}`, data);
+    this.db.createWithSubCollectionAndFill('journals', docId, 'members', data);
+
     console.log(this.journalForm.value);
 
-    this.db.updateAt(`journals/${id}`, data);
+    //this.db.updateAt(`journals/${id}`, data);
   }
 
   async gg() {
 
     console.log(this.journalForm.value);
+  }
+
+  updateChosenGroup(event) {
+    console.log(event.target.value);
+    this.chosenGroup.next(event.target.value);
+  }
+
+  generateId(part) {
+    return part + '-' + Date.now;
   }
 }

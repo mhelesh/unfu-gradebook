@@ -25,7 +25,7 @@ export class JournalPage implements OnInit {
   constructor(
     public db: DbService,
     public auth: AuthService,
-    public modal: ModalController
+    public modal: ModalController,
   ) { }
 
   ngOnInit() {
@@ -66,10 +66,6 @@ export class JournalPage implements OnInit {
     this.journalPath.institute = institute;
 
     this.updateChosenInstitute(institute);
-  }
-
-  add() {
-
   }
 
   async showModal() {

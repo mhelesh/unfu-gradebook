@@ -2,7 +2,14 @@ ion-thumbnail {
     padding: 5px;
     margin-right: 20px;
 
+    display: flex;
+    align-items: center;
+
     ion-img {
         border-radius: 50%;
+    }
+
+    ion-icon {
+        font-size: 24px;
     }
 }

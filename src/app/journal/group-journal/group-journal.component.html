@@ -3,7 +3,7 @@
 </app-page-header>
 
 <ion-content>
-  <pre>{{ journal$ | async | json }}</pre>
+  <pre>{{ journal$ | async }}</pre>
 
   <ion-card>
     <ion-card-header>
@@ -13,16 +13,34 @@
       </ion-card-title>
 
       <ion-card-subtitle>
-        {{(journal$ | async)?.id}}
+        {{ (journal$ | async)?.id }}
       </ion-card-subtitle>
 
     </ion-card-header>
     <ion-card-content>
-      <ion-list *ngFor="let item of list">
-        <ion-item>
-          <ion-label>{{item}}</ion-label>
-        </ion-item>
-      </ion-list>
+
+      <table>
+
+        <head>
+          <tr>
+            <th>
+              Students
+            </th>
+          </tr>
+        </head>
+
+        <tbody>
+          <tr *ngFor="let student of studentList ">
+            <th>Id</th>
+            <td>{{student.key}}</td>
+
+            <th></th>
+            <td>{{student.key}}</td>
+          </tr>
+        </tbody>
+
+      </table>
+
     </ion-card-content>
   </ion-card>
 </ion-content>

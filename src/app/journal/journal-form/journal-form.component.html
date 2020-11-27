@@ -9,7 +9,7 @@
   <form [formGroup]="journalForm">
 
     <ion-item>
-      <ion-select placeholder="Select institute" formControlName="institute"
+      <ion-select formControlName="institute" placeholder="Select institute"
         [class.invalid]="!journalForm.controls.institute.valid && (journalForm.controls.institute.dirty)">
         <ion-label position="floating">Institute</ion-label>
         <ion-select-option *ngFor="let institute of ((institutes$  | async)?.institutes)" value={{institute}}>
@@ -19,7 +19,7 @@
     </ion-item>
 
     <ion-item>
-      <ion-select placeholder="Select group" formControlName="group"
+      <ion-select formControlName="group" placeholder="Select group" (ionChange)="updateChosenGroup($event)"
         [class.invalid]="!journalForm.controls.group.valid && (journalForm.controls.group.dirty)"
         [attr.disabled]="!journalForm.controls.institute.valid">
         <ion-label position="floating">Institute</ion-label>
@@ -27,7 +27,17 @@
           value={{group}}>
           {{group | uppercase}}
         </ion-select-option>
+      </ion-select>
+    </ion-item>
 
+    <ion-item>
+      <ion-select formControlName="groupRef" placeholder="Select related group" interface="popover"
+        [class.invalid]="!journalForm.controls.group.valid && (journalForm.controls.group.dirty)"
+        [attr.disabled]="!journalForm.controls.group.valid">
+        <ion-label position="floating">Related group</ion-label>
+        <ion-select-option *ngFor="let group of ((groups$  | async))" value={{group.id}}>
+          {{ group.groupName | uppercase }} <span>{{'(' + group.curatorName + ')  ' }}</span>
+        </ion-select-option>
       </ion-select>
     </ion-item>
 
@@ -39,10 +49,9 @@
       <ion-badge slot="end" value="1">{{journalForm.value.groupYear || 1}}</ion-badge>
     </ion-item>
 
-
   </form>
 
-  <ion-button [disabled]="journalForm.invalid" (click)="createGroup()">{{ journal ? 'Add ' + journal : 'Change' }}
+  <ion-button [disabled]="journalForm.invalid" (click)="createGroup()">{{ journal ? 'Add' : 'Change' }}
   </ion-button>
 
 </ion-content>

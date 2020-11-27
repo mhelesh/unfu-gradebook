@@ -4,11 +4,11 @@
   </ion-buttons>
   <ion-title slot="start">{{pageTitle}}</ion-title>
 
-  <ion-title slot="end" size="small">{{(auth.user$ | async)?.displayName}}</ion-title>
-
-  <ion-thumbnail slot="end" (click)="toggleDarkMode()">
+  <!-- <ion-thumbnail slot="end" class="ion-margin-vertical" (click)="toggleDarkMode()">
     <ion-icon name="contrast-outline"></ion-icon>
   </ion-thumbnail>
+
+  <ion-toggle slot="end" checked={{dark}} (ionChange)="toggleDarkMode()"></ion-toggle> -->
 
   <ion-thumbnail slot="end" (click)="presentPopover($event)">
     <ion-img [src]="(auth.user$ | async)?.photoURL || 'assets/icon/favicon.png'"></ion-img>

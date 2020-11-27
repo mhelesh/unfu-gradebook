@@ -47,8 +47,21 @@ export class DbService {
     }
   }
 
+  createWithSubCollection(firstCol, partId, secondCol, data) {
+    return this.afs.collection(firstCol).doc(this.generateId(partId)).collection(secondCol).add({ ...data });
+  }
+
+  createWithSubCollectionAndFill(firstCol, partId, secondCol, data) {
+
+    this.afs.collection(firstCol).doc(partId).collection(secondCol).add({ ...data });
+  }
+
   // Deletes document from Firestore by path to document
   delete(path: string) {
     return this.afs.doc(path).delete();
+  }
+
+  generateId(part) {
+    return '' + part + '-' + Date.now();
   }
 }

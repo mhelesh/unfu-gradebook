@@ -1,9 +1,12 @@
 <ion-app>
+
   <ion-menu side="start" type="push" contentId="main-content">
 
     <ion-header>
-      <ion-toolbar color="dark">
-        <ion-title slot="start" size="large">UNFU Gradebook</ion-title>
+      <ion-toolbar>
+        <div style="padding: 10px;">
+          <app-logo [type]="'rec'" slot="start"></app-logo>
+        </div>
       </ion-toolbar>
     </ion-header>
 
@@ -21,6 +24,12 @@
       </ion-list>
     </ion-content>
 
+    <ion-footer>
+      <ion-toolbar>
+        <app-login></app-login>
+        <ion-text>Made by <a>Myroslav Helesh</a></ion-text>
+      </ion-toolbar>
+    </ion-footer>
   </ion-menu>
 
   <ion-router-outlet id="main-content"></ion-router-outlet>

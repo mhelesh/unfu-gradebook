@@ -1,0 +1,9 @@
+<ng-container *ngIf="type === 'sqv'; else elseTemplate">
+  <ion-thumbnail>
+    <ion-img [src]="'assets/logo/logo-sqv.svg'"></ion-img>
+  </ion-thumbnail>
+</ng-container>
+
+<ng-template #elseTemplate>
+  <ion-img [src]="'assets/logo/logo-rec.svg'"></ion-img>
+</ng-template>

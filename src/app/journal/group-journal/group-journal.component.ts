@@ -11,12 +11,35 @@ export class GroupJournalComponent implements OnInit {
 
   constructor(private db: DbService, private route: ActivatedRoute) { }
   journal$;
-
-  list = [1, 2, 3, 4, 56, 7, 8, 9, 2, 6, 5, 2, 5, 5, 5, 21, 4141, 3]
+  studentList = [];
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
 
     this.journal$ = this.db.doc$(`journals/${id}`);
+
+    this.journal$.subscribe(res => {
+
+      // if (res.groupId) {
+      //   res.groupId.get().then(result => {
+      //     const groupMembers = result.data().members;
+
+      //     console.log(groupMembers);
+
+      //     for (const key in groupMembers) {
+      //       if (Object.prototype.hasOwnProperty.call(groupMembers, key)) {
+      //         const element = groupMembers[key];
+
+      //         this.studentList.push({ key, element });
+      //       }
+      //     }
+      //     console.log(this.studentList);
+      //   });
+      // }
+    });
+  }
+
+  getFromRef(ref) {
+
   }
 }
