@@ -14,6 +14,7 @@ import { Firebase } from '@ionic-native/firebase/ngx';
 import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireFunctionsModule } from '@angular/fire/functions';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
@@ -22,6 +23,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { SharedModule } from './shared/shared.module';
 import { CommonModule } from '@angular/common';
+
+import { Camera } from '@ionic-native/camera/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,6 +38,7 @@ import { CommonModule } from '@angular/common';
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireFunctionsModule,
+    AngularFireStorageModule,
     AngularFireMessagingModule,
     IonicStorageModule.forRoot(),
     SharedModule,
@@ -44,7 +48,8 @@ import { CommonModule } from '@angular/common';
     StatusBar,
     SplashScreen,
     GooglePlus,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    Camera,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent]
 })

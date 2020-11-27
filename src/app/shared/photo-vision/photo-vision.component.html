@@ -1,0 +1,26 @@
+<ion-button ion-button icon-start (tap)="captureAndUpload()">
+  <ion-icon name="camera"></ion-icon>
+  Get vision info
+</ion-button>
+
+<ion-col *ngIf="result$ | async as result">
+
+  <h3>Document?</h3>
+
+  <button *ngIf="result.document" color="secondary" ion-button full>
+    Good
+  </button>
+
+  <button *ngIf="!result.document" color="danger" ion-button full>
+    Something get wrong!
+  </button>
+
+  <h3>This is look like:</h3>
+
+  <ion-chip color="secondary" *ngFor="let label of result.labels">
+
+    <ion-label>{{ label }}</ion-label>
+
+  </ion-chip>
+
+</ion-col>
