@@ -63,6 +63,8 @@ export class PhotoVisionComponent implements OnInit {
   }
 
   async captureAndUpload() {
+    console.log('Capturing...');
+
     const options: CameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
