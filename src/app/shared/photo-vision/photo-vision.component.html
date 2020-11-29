@@ -1,26 +1,34 @@
-<ion-button ion-button icon-start (tap)="captureAndUpload()">
-  <ion-icon name="camera"></ion-icon>
-  Get vision info
-</ion-button>
+<ion-row>
+  <ion-col col-6 text-center>
+    <ion-button ion-button icon-start text-center (click)="captureAndUpload('CAMERA')">
+      <ion-icon name="camera"></ion-icon>
+      Get from camera
+    </ion-button>
+  </ion-col>
+  <ion-col col-6 text-center>
+    <ion-button ion-button icon-start text-center (click)="captureAndUpload('PHOTOLIBRARY')">
+      <ion-icon name="folder"></ion-icon>
+      Get from gallery
+    </ion-button>
+  </ion-col>
+</ion-row>
 
-<ion-col *ngIf="result$ | async as result">
+<ion-card>
+  <ion-card-header>
+    <img [src]="image" />
+  </ion-card-header>
 
-  <h3>Document?</h3>
+  <ion-card-content *ngIf="result$ | async as result">
+    <ion-col>
+      <ion-chip color="secondary" *ngFor="let label of result.labels">
+        <ion-label>{{ label }}</ion-label>
+      </ion-chip>
+    </ion-col>
+  </ion-card-content>
+</ion-card>
 
-  <button *ngIf="result.document" color="secondary" ion-button full>
-    Good
-  </button>
-
-  <button *ngIf="!result.document" color="danger" ion-button full>
-    Something get wrong!
-  </button>
-
-  <h3>This is look like:</h3>
-
-  <ion-chip color="secondary" *ngFor="let label of result.labels">
-
-    <ion-label>{{ label }}</ion-label>
-
-  </ion-chip>
-
-</ion-col>
+<ion-card *ngIf="(result$ | async)?.text">
+  <ion-card-content>
+    <ion-text>{{ (result$ | async)?.text }}</ion-text>
+  </ion-card-content>
+</ion-card>
