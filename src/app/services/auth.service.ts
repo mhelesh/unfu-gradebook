@@ -125,7 +125,7 @@ export class AuthService {
   async nativeGoogleLogin(): Promise<any> {
     const gplusUser = await this.gplus.login({
       webClientId:
-        '510547925560-bber68roako88gof1uptrkear4v8umjs.apps.googleusercontent.com',
+        '510547925560-6ngk69nra1ohhol58hc2f5pip04vpig6.apps.googleusercontent.com',
       offline: true,
       scopes: 'profile email'
     });
