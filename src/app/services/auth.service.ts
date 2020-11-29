@@ -123,7 +123,12 @@ export class AuthService {
   }
 
   async nativeGoogleLogin(): Promise<any> {
-    const gplusUser = await this.gplus.login({});
+    const gplusUser = await this.gplus.login({
+      webClientId: '510547925560-bber68roako88gof1uptrkear4v8umjs.apps.googleusercontent.com',
+      offline: true,
+    });
+
+    console.log('gplus login: ', gplusUser);
 
     return await this.afAuth.signInWithCredential(
       firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken)

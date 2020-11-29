@@ -71,7 +71,7 @@ export class PhotoVisionComponent implements OnInit {
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-    }
+    };
 
     const base64 = await this.camera.getPicture(options);
 

@@ -3,6 +3,11 @@
   Get vision info
 </ion-button>
 
+<ion-button ion-button icon-start (click)="captureAndUpload()">
+  <ion-icon name="camera"></ion-icon>
+  Get vision info
+</ion-button>
+
 <ion-col *ngIf="result$ | async as result">
 
   <h3>Document?</h3>
