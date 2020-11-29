@@ -79,7 +79,8 @@
       "cordova-plugin-ionic-keyboard": {},
       "cordova-sqlite-storage": {},
       "cordova-plugin-googleplus": {
-        "PLAY_SERVICES_VERSION": "15.0.1"
+        "REVERSED_CLIENT_ID": "com.unfu.gradebook",
+        "WEB_APPLICATION_CLIENT_ID": "510547925560-6ngk69nra1ohhol58hc2f5pip04vpig6.apps.googleusercontent.com"
       },
       "cordova-plugin-camera": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
