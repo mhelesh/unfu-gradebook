@@ -21,8 +21,9 @@ const bucketName = 'unfu-gradebook-cloud-vision';
 export const imageTagger = functions.storage
     .bucket(bucketName)
     .object()
-    .onFinalize(async (object, context) => {
+    .onFinalize(async (object: any) => {
         const filePath = object.name || '';
+        const fileSelfLink = object.selfLink;
 
         const imageUri = `gs://${bucketName}/${filePath}` || '';
 
@@ -30,10 +31,15 @@ export const imageTagger = functions.storage
 
         const docRef = admin.firestore().collection('cloud-vision-photos').doc(docId);
 
-        const results = await visionClient.labelDetection(imageUri);
+        const detectedLabels = await visionClient.labelDetection(imageUri);
+        const detectedText = await visionClient.documentTextDetection(imageUri);
 
-        const labels = results[0].labelAnnotations?.map(obj => obj.description) || [];
+        const labels = detectedLabels[0].labelAnnotations?.map(obj => obj.description) || [];
         const document = labels.includes('Document');
 
-        return docRef.set({ document, labels });
+        const detectedTextObj: any = detectedText[0];
+        const fullText = detectedTextObj.textAnnotations[0];
+        const text = fullText ? fullText.description : '';
+
+        return docRef.set({ document, labels, text, photoName: filePath, fileSelfLink });
     });

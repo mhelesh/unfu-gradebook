@@ -28,6 +28,8 @@
     "@ionic-native/status-bar": "^5.0.0",
     "@ionic/angular": "^5.0.0",
     "@ionic/storage": "^2.3.1",
+    "cordova": "^10.0.0",
+    "cordova-browser": "6.0.0",
     "firebase": "^8.0.2",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
@@ -79,7 +81,9 @@
       "cordova-plugin-ionic-keyboard": {},
       "cordova-sqlite-storage": {},
       "cordova-plugin-googleplus": {
-        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.510547925560-1f61tarhr85r3v0mu56umiflc6fr11pe"
+        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.510547925560-1f61tarhr85r3v0mu56umiflc6fr11pe",
+        "WEB_APPLICATION_CLIENT_ID": "510547925560-bber68roako88gof1uptrkear4v8umjs.apps.googleusercontent.com",
+        "PLAY_SERVICES_VERSION": "15.0.1"
       },
       "cordova-plugin-camera": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
