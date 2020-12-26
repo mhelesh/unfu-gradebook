@@ -72,6 +72,8 @@ export class JournalFormComponent implements OnInit {
 
     this.db.updateAt(`journals/${docId}`, data);
     this.db.createWithSubCollectionAndFill('journals', docId, 'members', data);
+
+    this.modal.dismiss();
   }
 
   async gg() {
@@ -87,4 +89,9 @@ export class JournalFormComponent implements OnInit {
   generateId(part) {
     return part + '-' + Date.now;
   }
+
+  closeModal() {
+    this.modal.dismiss();
+  }
+
 }

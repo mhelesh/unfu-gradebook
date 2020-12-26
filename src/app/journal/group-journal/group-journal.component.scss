@@ -9,3 +9,14 @@
 .is-hig {
     background-color: rgb(155, 255, 109);
 }
+
+.doc {
+    &-card {}
+}
+
+
+.label-chip {
+    padding: 2px 4px;
+    font-size: 0.8rem;
+    border-radius: 3px;
+}

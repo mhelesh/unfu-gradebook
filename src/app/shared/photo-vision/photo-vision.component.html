@@ -1,49 +1,74 @@
-<ion-card>
-  <ion-img [src]="image"></ion-img>
+<ion-content>
+  <ion-button class="close-modal-btn" color="dark" (click)="closeModal()">
+    <ion-icon name="arrow-back"></ion-icon>
+  </ion-button>
 
-  <ion-card-content>
-    <ion-row *ngIf="platform.is('mobile') && !platform.is('mobileweb')">
-      <ion-col col-6 text-center class="btn-wrap">
-        <ion-button ion-button icon-start text-center (click)="captureAndUpload('CAMERA')">
-          <ion-icon name="camera"></ion-icon>
-          Get from camera
-        </ion-button>
+  <ion-card>
+    <ion-img [src]="image"></ion-img>
+    <ion-card-content>
+      <ion-row *ngIf="platform.is('mobile') && !platform.is('mobileweb')">
+        <ion-col col-5 text-center class="btn-wrap">
+          <ion-button ion-button icon-start text-center (click)="captureAndUpload('CAMERA')">
+            <ion-icon name="camera"></ion-icon>
+            Get from camera
+          </ion-button>
+        </ion-col>
+        <ion-col col-5 text-center class="btn-wrap">
+          <ion-button ion-button icon-start text-center (click)="captureAndUpload('PHOTOLIBRARY')">
+            <ion-icon name="folder"></ion-icon>
+            Get from gallery
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="platform.is('desktop') || platform.is('mobileweb')">
+        <ion-col col-11 text-center class="btn-wrap">
+          <ion-input type="file" (change)="handleFileInput($event)"></ion-input>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-col *ngIf="result$ | async as result; else dic">
+        <ion-chip color="secondary" *ngFor="let label of result.labels">
+          <ion-label>{{ label }}</ion-label>
+        </ion-chip>
       </ion-col>
-      <ion-col col-6 text-center class="btn-wrap">
-        <ion-button ion-button icon-start text-center (click)="captureAndUpload('PHOTOLIBRARY')">
-          <ion-icon name="folder"></ion-icon>
-          Get from gallery
-        </ion-button>
-      </ion-col>
-    </ion-row>
+      <ng-template #dic>
+        <ion-text>Chose an image</ion-text>
+      </ng-template>
 
-    <ion-row *ngIf="platform.is('desktop') || platform.is('mobileweb')">
-      <ion-col col-12 text-center class="btn-wrap">
-        <ion-input type="file" (change)="handleFileInput($event)"></ion-input>
-      </ion-col>
-    </ion-row>
-  </ion-card-content>
+    </ion-card-content>
+  </ion-card>
 
-</ion-card>
+  <ion-card *ngIf="(result$ | async)?.text; let result">
+    <ion-card-header *ngIf="result.documentName">
+      <ion-card-title>
+        {{result.documentName}}
+      </ion-card-title>
+      <ion-card-subtitle>
+        {{result.linkedTo}}
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-text>{{ (result$ | async)?.text }}</ion-text>
+    </ion-card-content>
+    <ion-item-divider></ion-item-divider>
 
+    <div class="form">
+      <ion-input #docName placeholder="Document name">
+      </ion-input>
 
+      <ion-input #docLinkedTo placeholder="Link to journal" [value]="linkedToJournal">
+      </ion-input>
 
-<ion-card>
-  <ion-card-content>
-    <ion-col *ngIf="result$ | async as result; else dic">
-      <ion-chip color="secondary" *ngFor="let label of result.labels">
-        <ion-label>{{ label }}</ion-label>
-      </ion-chip>
-    </ion-col>
-    <ng-template #dic>
-      <ion-text>Chose an image</ion-text>
-    </ng-template>
+      <ion-button [disabled]="!docName.value || !docLinkedTo.value"
+        (click)="saveWithMetadata(docName.value, docLinkedTo.value)">Save</ion-button>
 
-  </ion-card-content>
-</ion-card>
+    </div>
 
-<ion-card *ngIf="(result$ | async)?.text">
-  <ion-card-content>
-    <ion-text>{{ (result$ | async)?.text }}</ion-text>
-  </ion-card-content>
-</ion-card>
+  </ion-card>
+</ion-content>

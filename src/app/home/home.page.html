@@ -27,8 +27,16 @@
         <h3>You can try our <b>Cloud Vision Module</b></h3>
       </ion-card-title>
     </ion-card-header>
-
-    <app-photo-vision></app-photo-vision>
+    <ion-card-content>
+      <ion-text>
+        The Cloud Vision component is a component with basic controllers for uploading photos
+        to the server and retrieving the extracted information. after receiving the processed result,
+        this document can be added to the list of documents in the relevant journal.
+        You can try to upload your own photo and get its text content. Warning!
+        All data will be stored in the database, but cannot be deleted manually.
+      </ion-text> <br>
+      <ion-button (click)="presentPVModal()"> Try it </ion-button>
+    </ion-card-content>
   </ion-card>
 
 </ion-content>

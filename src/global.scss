@@ -27,6 +27,24 @@
 
 
 .card-md-size {
-    max-width: 900px;
+    max-width: 780px;
     margin: 20px auto;
+}
+
+.ngx-datatable {
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    padding: 5px;
+
+    .ngx-datatable-column {
+        border: 1px solid #dddddd;
+    }
+}
+
+.modal {
+    &-pv .modal-wrapper {
+        height: 95%;
+        min-width: 50%;
+        justify-content: flex-start;
+    }
 }

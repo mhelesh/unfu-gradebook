@@ -7,18 +7,22 @@ import { Observable, pipe } from 'rxjs';
 import { tap } from 'rxjs/internal/operators/tap';
 import { map } from 'rxjs/internal/operators/map';
 
+import { PhotoVisionComponent } from 'src/app/shared/photo-vision/photo-vision.component';
+import { ModalController } from '@ionic/angular';
+
 @Component({
   selector: 'app-group-journal',
   templateUrl: './group-journal.component.html',
   styleUrls: ['./group-journal.component.scss'],
 })
-export class GroupJournalComponent {
+export class GroupJournalComponent implements OnInit {
 
   journalId;
 
-  journal$;
+  journal$: Observable<any>;
   members$
   gradeTable$;
+  linkedDocs$: Observable<any>;
   gradeTable = [];
 
   studentList = [];
@@ -112,9 +116,16 @@ export class GroupJournalComponent {
         });
       }
     });
+
+    this.linkedDocs$ = this.db.collection$('cloud-vision-photos', ref =>
+      ref
+        .where('linkedTo', '==', this.journalId)
+        .limit(100)
+    )
+
   }
 
-  constructor(private db: DbService, private route: ActivatedRoute) { }
+  constructor(private db: DbService, private route: ActivatedRoute, public modalController: ModalController) { }
 
   updateValue(event, cell, rowIndex, type = 'number') {
     this.editing[rowIndex + '-' + cell] = false;
@@ -169,5 +180,17 @@ export class GroupJournalComponent {
       'is-med': sum < 75,
       'is-hig': sum < 100
     };
+  }
+
+
+  async presentPVModal() {
+    const modal = await this.modalController.create({
+      component: PhotoVisionComponent,
+      cssClass: 'modal-pv',
+      componentProps: {
+        'linkedToJournal': this.journalId,
+      }
+    });
+    return await modal.present();
   }
 }

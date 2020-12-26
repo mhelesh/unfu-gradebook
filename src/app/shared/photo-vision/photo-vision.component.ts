@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { tap, filter } from 'rxjs/operators';
 
@@ -7,8 +7,9 @@ import { AngularFirestore } from '@angular/fire/firestore';
 
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Observable } from 'rxjs';
-import { LoadingController, Platform } from '@ionic/angular';
+import { LoadingController, ModalController, Platform } from '@ionic/angular';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DbService } from 'src/app/services/db.service';
 
 @Component({
   selector: 'app-photo-vision',
@@ -23,6 +24,10 @@ export class PhotoVisionComponent implements OnInit {
   loading: HTMLIonLoadingElement;
   image: string;
 
+  docId: string;
+
+  @Input() linkedToJournal = 'any';
+
   constructor(
     public platform: Platform,
     private storage: AngularFireStorage,
@@ -30,6 +35,8 @@ export class PhotoVisionComponent implements OnInit {
     private camera: Camera,
     private loadingCtrl: LoadingController,
     private sanitizer: DomSanitizer,
+    private db: DbService,
+    public modalCtrl: ModalController
   ) {
   }
 
@@ -42,9 +49,6 @@ export class PhotoVisionComponent implements OnInit {
       duration: 2000
     });
     await this.loading.present();
-
-    // const { role, data } = await this.loading.onDidDismiss();
-    // console.log('Loading dismissed!');
   }
 
   async uploadPhoto(file: string) {
@@ -54,6 +58,7 @@ export class PhotoVisionComponent implements OnInit {
     const path = `${docId}.jpg`;
 
     console.log(`${docId}.jpg`);
+    this.docId = docId;
 
     const photoRef = this.afs.collection('cloud-vision-photos').doc(docId);
 
@@ -98,6 +103,14 @@ export class PhotoVisionComponent implements OnInit {
 
   base64ToImg(base64) {
     return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + base64);
+  }
+
+  saveWithMetadata(documentName, linkedTo) {
+    this.db.updateAt(`cloud-vision-photos/${this.docId}`, { documentName, linkedTo })
+  }
+
+  closeModal() {
+    this.modalCtrl.dismiss();
   }
 }
 

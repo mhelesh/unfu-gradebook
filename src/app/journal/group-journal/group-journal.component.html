@@ -5,7 +5,6 @@
 <ion-content>
   <ion-card>
     <ion-card-header>
-
       <ion-card-title>
         {{((journal$ | async)?.group + '-' + (journal$ | async)?.groupYear) | uppercase}}
       </ion-card-title>
@@ -13,7 +12,6 @@
       <ion-card-subtitle>
         {{ (journal$ | async)?.id }}
       </ion-card-subtitle>
-
     </ion-card-header>
     <ion-card-content>
 
@@ -53,5 +51,34 @@
 
 
     </ion-card-content>
+
+    <ion-footer>
+      <ion-button (click)="presentPVModal()">Add new document</ion-button>
+    </ion-footer>
   </ion-card>
+
+  <ion-row>
+    <ion-col size="4" *ngFor="let doc of linkedDocs$ | async">
+      <ion-card class="doc-card">
+        <!-- <ion-img [src]="doc.fileSelfLink"></ion-img> -->
+        <ion-card-header>
+          <ion-card-title>
+            {{doc.documentName}}
+          </ion-card-title>
+
+          <ion-chip style="padding: 2px 5px; font-size: 0.8rem; height: 23px;"
+            [color]="(label === 'Document') || (label ==='Paper') ? 'primary' : 'light'"
+            *ngFor="let label of doc?.labels">
+            {{label}}
+          </ion-chip>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-text>
+            {{doc.text | slice: 0 : 200}}
+          </ion-text>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
 </ion-content>
