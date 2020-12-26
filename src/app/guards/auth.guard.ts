@@ -19,13 +19,13 @@ export class AuthGuard implements CanActivate {
   async canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Promise<boolean> {
-    const uid = await this.auth.uid()
+    const uid = await this.auth.uid();
     const isLoggedIn = !!uid;
 
     if (!isLoggedIn) {
       const alert = await this.alertController.create({
         header: 'Blocked',
-        subHeader: 'User only',
+        subHeader: 'For Logged Users only',
         message: `You don't have permission for this page`,
         buttons: ['Ok']
       });

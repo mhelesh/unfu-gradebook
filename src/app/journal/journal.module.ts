@@ -10,6 +10,7 @@ import { SharedModule } from '../shared/shared.module';
 import { JournalPage } from './journal.page';
 import { JournalFormComponent } from './journal-form/journal-form.component';
 import { GroupJournalComponent } from './group-journal/group-journal.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { GroupJournalComponent } from './group-journal/group-journal.component';
     SharedModule,
     JournalPageRoutingModule,
     ReactiveFormsModule,
+    NgxDatatableModule,
   ],
   declarations: [JournalPage, JournalFormComponent, GroupJournalComponent],
   entryComponents: [JournalFormComponent]

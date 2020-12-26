@@ -72,10 +72,6 @@ export class JournalFormComponent implements OnInit {
 
     this.db.updateAt(`journals/${docId}`, data);
     this.db.createWithSubCollectionAndFill('journals', docId, 'members', data);
-
-    console.log(this.journalForm.value);
-
-    //this.db.updateAt(`journals/${id}`, data);
   }
 
   async gg() {

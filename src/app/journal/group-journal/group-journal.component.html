@@ -3,8 +3,6 @@
 </app-page-header>
 
 <ion-content>
-  <pre>{{ journal$ | async }}</pre>
-
   <ion-card>
     <ion-card-header>
 
@@ -19,27 +17,40 @@
     </ion-card-header>
     <ion-card-content>
 
-      <table>
+      <ngx-datatable class="material fullscreen" [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="0"
+        [rowHeight]="50" [scrollbarV]="true" [scrollbarH]="true" [rows]="gradeTable$ | async">
+        <ngx-datatable-column name="fullName" [width]="150">
+          <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+            <span title="Double click to edit" (dblclick)="editing[rowIndex + '-name'] = true"
+              *ngIf="!editing[rowIndex + '-name']">
+              <b>{{ value }}</b>
+            </span>
+            <input autofocus (blur)="updateValue($event, 'name', rowIndex, 'string')"
+              *ngIf="editing[rowIndex + '-name']" type="text" [value]="value" />
+          </ng-template>
+        </ngx-datatable-column>
 
-        <head>
-          <tr>
-            <th>
-              Students
-            </th>
-          </tr>
-        </head>
 
-        <tbody>
-          <tr *ngFor="let student of studentList ">
-            <th>Id</th>
-            <td>{{student.key}}</td>
+        <ngx-datatable-column *ngFor="let item of [ 1,2,3,4 , 'mod1', 5,6,7,8, 'mod2']" name="{{item}}/{{8}}"
+          prop="{{item}}" [width]="80">
+          <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+            <span title="Double click to edit" (dblclick)="editing[rowIndex + '-' + item] = true"
+              *ngIf="!editing[rowIndex + '-' + item]">
+              {{ value }}
+            </span>
+            <input autofocus (blur)="updateValue($event, item, rowIndex, 'number')"
+              *ngIf="editing[rowIndex + '-' + item]" type="text" [value]="value" />
+          </ng-template>
+        </ngx-datatable-column>
 
-            <th></th>
-            <td>{{student.key}}</td>
-          </tr>
-        </tbody>
+        <ngx-datatable-column name="sum" [cellClass]="getCellClass" [width]="80">
+        </ngx-datatable-column>
+      </ngx-datatable>
 
-      </table>
+
+      ----------------------------------------------{{journal$ | async | json}}
+      ----------------------------------------------{{members$ | async | json}}
+
 
     </ion-card-content>
   </ion-card>

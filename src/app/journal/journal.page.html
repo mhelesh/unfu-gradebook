@@ -27,7 +27,7 @@
     <ion-card-content>
       <ion-list *ngIf='(journals$ | async)?.length > 0 ; else noJournals'>
         <ion-item *ngFor="let journal of journals$  | async ; trackBy: trackById;">
-          <ion-title>{{journal.group}}</ion-title>
+          <ion-title>{{journal.institute | uppercase}}: {{journal.group}}-{{journal.groupYear}}</ion-title>
 
           <ion-button [routerLink]="journal.id">
             <ion-icon name="chevron-forward-outline"></ion-icon>
@@ -42,6 +42,10 @@
         </ion-card-content>
       </ng-template>
 
+      <ion-button (click)="showModal()">
+        <ion-icon name="create"></ion-icon>
+      </ion-button>
+
     </ion-card-content>
   </ion-card>
 
@@ -55,7 +59,5 @@
     </ion-tab-bar>
   </ion-tabs> -->
 
-  <ion-button (click)="showModal()">
-    <ion-icon name="create"></ion-icon>
-  </ion-button>
+
 </ion-content>
