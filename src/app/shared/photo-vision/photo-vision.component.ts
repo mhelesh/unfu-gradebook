@@ -7,7 +7,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Observable } from 'rxjs';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, Platform } from '@ionic/angular';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
@@ -24,6 +24,7 @@ export class PhotoVisionComponent implements OnInit {
   image: string;
 
   constructor(
+    public platform: Platform,
     private storage: AngularFireStorage,
     private afs: AngularFirestore,
     private camera: Camera,
@@ -83,6 +84,16 @@ export class PhotoVisionComponent implements OnInit {
     const base64 = await this.camera.getPicture(options);
 
     this.uploadPhoto(base64);
+  }
+
+  handleFileInput(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      const base64 = reader.result.toString().replace('data:image/jpeg;base64,', '');
+      this.uploadPhoto(base64);
+    };
   }
 
   base64ToImg(base64) {

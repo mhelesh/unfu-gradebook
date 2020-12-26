@@ -1,18 +1,14 @@
-<ion-card>
-  <ion-card-header>
-
-    <ion-card-subtitle>
-      User id: {{user.id}}
-    </ion-card-subtitle>
-
-    <img [src]="user.photoURL || 'assets/icon/favicon.png'" alt="User's avatar">
-
-    <ion-card-title>{{user.displayName || 'Anonym'}} </ion-card-title>
-
-  </ion-card-header>
-
-  <ion-card-content>
-    Anonymous: {{user.isAnonymous}} <br> Email: {{user.email || 'unknown'}}
-  </ion-card-content>
-
+<ion-card color="dark">
+  <ion-row>
+    <ion-col size="4" class="prof-img">
+      <img [src]="user.photoURL || 'assets/icon/default-user-image.png'" alt="User's avatar">
+    </ion-col>
+    <ion-col size="8" class="prof-inf">
+      <ion-text>{{user.displayName || 'Anonym'}}</ion-text>
+      <ion-text>{{user.email || '@unknown email'}}</ion-text>
+      <ion-button (click)="signOut()">
+        Logout
+      </ion-button>
+    </ion-col>
+  </ion-row>
 </ion-card>

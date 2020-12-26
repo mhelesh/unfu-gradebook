@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-profile',
@@ -8,7 +9,11 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ProfileComponent implements OnInit {
 
   @Input() user;
+  @Output() logout: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  signOut() {
+    this.logout.emit(true);
+  }
   constructor() { }
 
   ngOnInit() { }

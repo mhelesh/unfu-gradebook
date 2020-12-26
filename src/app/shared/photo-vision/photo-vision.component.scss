@@ -1,0 +1,9 @@
+.btn-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+
+    ion-button {
+        width: max-content;
+    }
+}

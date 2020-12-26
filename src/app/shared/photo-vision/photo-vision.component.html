@@ -1,29 +1,44 @@
-<ion-row>
-  <ion-col col-6 text-center>
-    <ion-button ion-button icon-start text-center (click)="captureAndUpload('CAMERA')">
-      <ion-icon name="camera"></ion-icon>
-      Get from camera
-    </ion-button>
-  </ion-col>
-  <ion-col col-6 text-center>
-    <ion-button ion-button icon-start text-center (click)="captureAndUpload('PHOTOLIBRARY')">
-      <ion-icon name="folder"></ion-icon>
-      Get from gallery
-    </ion-button>
-  </ion-col>
-</ion-row>
+<ion-card>
+  <ion-img [src]="image"></ion-img>
+
+  <ion-card-content>
+    <ion-row *ngIf="platform.is('mobile') && !platform.is('mobileweb')">
+      <ion-col col-6 text-center class="btn-wrap">
+        <ion-button ion-button icon-start text-center (click)="captureAndUpload('CAMERA')">
+          <ion-icon name="camera"></ion-icon>
+          Get from camera
+        </ion-button>
+      </ion-col>
+      <ion-col col-6 text-center class="btn-wrap">
+        <ion-button ion-button icon-start text-center (click)="captureAndUpload('PHOTOLIBRARY')">
+          <ion-icon name="folder"></ion-icon>
+          Get from gallery
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="platform.is('desktop') || platform.is('mobileweb')">
+      <ion-col col-12 text-center class="btn-wrap">
+        <ion-input type="file" (change)="handleFileInput($event)"></ion-input>
+      </ion-col>
+    </ion-row>
+  </ion-card-content>
+
+</ion-card>
+
+
 
 <ion-card>
-  <ion-card-header>
-    <img [src]="image" />
-  </ion-card-header>
-
-  <ion-card-content *ngIf="result$ | async as result">
-    <ion-col>
+  <ion-card-content>
+    <ion-col *ngIf="result$ | async as result; else dic">
       <ion-chip color="secondary" *ngFor="let label of result.labels">
         <ion-label>{{ label }}</ion-label>
       </ion-chip>
     </ion-col>
+    <ng-template #dic>
+      <ion-text>Chose an image</ion-text>
+    </ng-template>
+
   </ion-card-content>
 </ion-card>
 

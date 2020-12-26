@@ -1,5 +1,34 @@
 <app-page-header [pageTitle]="'Home'"></app-page-header>
+
 <ion-content>
-  <!-- <app-login></app-login> -->
-  <app-photo-vision></app-photo-vision>
+  <ion-card class="card-md-size">
+    <ion-img [src]="'assets/home/Botanichnyj-sad-LNU.jpg'"></ion-img>
+    <ion-card-header>
+      <ion-card-title>
+        <h3>About project</h3>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+      <ion-text>
+        All information contained on the <b>'UNFU Gradebook'</b> is for informational and educational purposes
+        only.
+        This website may collect data about you, use cookies, embed additional third-party tracking,
+        and monitor your interaction with that embedded content if you have an account and are logged
+        in to that website.
+      </ion-text>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card color="light" class="card-md-size">
+    <ion-img [src]="'assets/home/Computer_Vision.png'"></ion-img>
+    <ion-card-header>
+      <ion-card-title>
+        <h3>You can try our <b>Cloud Vision Module</b></h3>
+      </ion-card-title>
+    </ion-card-header>
+
+    <app-photo-vision></app-photo-vision>
+  </ion-card>
+
 </ion-content>
