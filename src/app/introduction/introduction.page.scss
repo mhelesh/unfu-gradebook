@@ -1,6 +1,6 @@
 .introduction-box {
     width: 80%;
-    min-width: 500px;
+    min-width: 350px;
 
     margin: auto;
     display: flex;
@@ -11,6 +11,10 @@
     justify-content: center;
 
     height: 100vh;
+
+    H1 {
+        font-size: clamp(16px, 2vw, 45px);
+    }
 
     ion-text {
         h1 {

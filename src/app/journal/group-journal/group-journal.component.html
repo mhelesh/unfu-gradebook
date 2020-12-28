@@ -34,21 +34,19 @@
           <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
             <span title="Double click to edit" (dblclick)="editing[rowIndex + '-' + item] = true"
               *ngIf="!editing[rowIndex + '-' + item]">
-              {{ value }}
+              {{ value || 0 }}
             </span>
             <input autofocus (blur)="updateValue($event, item, rowIndex, 'number')"
               *ngIf="editing[rowIndex + '-' + item]" type="text" [value]="value" />
           </ng-template>
         </ngx-datatable-column>
 
-        <ngx-datatable-column name="sum" [cellClass]="getCellClass" [width]="80">
+        <ngx-datatable-column name="sum" [width]="80">
         </ngx-datatable-column>
       </ngx-datatable>
 
 
-      ----------------------------------------------{{journal$ | async | json}}
-      ----------------------------------------------{{members$ | async | json}}
-
+      <!-- ----------------------------------------------{{gradeTable$ | async | json}} -->
 
     </ion-card-content>
 
@@ -58,7 +56,7 @@
   </ion-card>
 
   <ion-row>
-    <ion-col size="4" *ngFor="let doc of linkedDocs$ | async">
+    <ion-col size="12" size-sm size-md="4" *ngFor="let doc of linkedDocs$ | async">
       <ion-card class="doc-card">
         <!-- <ion-img [src]="doc.fileSelfLink"></ion-img> -->
         <ion-card-header>
@@ -74,7 +72,7 @@
         </ion-card-header>
         <ion-card-content>
           <ion-text>
-            {{doc.text | slice: 0 : 200}}
+            {{doc.text | slice: 0 : 300 }}{{doc.text.length > 300 ? '...' : ''}}
           </ion-text>
         </ion-card-content>
       </ion-card>
